@@ -1,0 +1,19 @@
+[Unit]
+Description=Assignment Management API service
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/student-management-backend
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+EnvironmentFile=/var/www/student-management-backend/.env
+
+# Output logs to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=assignment_management_api
+
+[Install]
+WantedBy=multi-user.target
