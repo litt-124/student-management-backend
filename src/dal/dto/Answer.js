@@ -5,9 +5,11 @@ const Schema = mongoose.Schema;
  * AnswerSchema
  */
 const AnswerSchema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  question_id: { type: Schema.Types.ObjectId, ref: 'Question', required: true },
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  questionId: { type: Schema.Types.ObjectId, ref: 'Question', required: true },
   value: { type: String, required: true },
-  attachment: { type: String }
+  attachment: { type: String },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 mongoose.model('Answer', AnswerSchema);

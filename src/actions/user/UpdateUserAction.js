@@ -29,7 +29,6 @@ const UserManager = require(path.join(MANAGER.getManagersDir(), 'UserManager'));
  *             email: "new_admin@admin.com"
  *             password: "UpdatedPass123"
  *             type: "teacher"
- *             group_id: "65f2c7a765cabc1234567890"
  *     responses:
  *       200:
  *         description: Successfully updated user
@@ -42,7 +41,6 @@ const UserManager = require(path.join(MANAGER.getManagersDir(), 'UserManager'));
  *               lastName: "Admin"
  *               email: "new_admin@admin.com"
  *               type: "teacher"
- *               group_id: "65f2c7a765cabc1234567890"
  *       400:
  *         description: Invalid input
  *         content:
@@ -66,8 +64,7 @@ class UpdateUserAction extends AbstractUserAction {
             lastName: { type: 'text', from: 'body' },
             email: { type: 'text', from: 'body', validator: EmailValidator },
             password: { type: 'text', from: 'body', validator: PasswordValidator },
-            type: { type: 'enum', from: 'body', possibleValues: ['admin', 'teacher', 'student'] },
-            group_id: { type: 'text', from: 'body' }
+            type: { type: 'enum', from: 'body', possibleValues: ['admin', 'teacher', 'student'] }
         };
     }
 }

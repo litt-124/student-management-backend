@@ -11,6 +11,8 @@ const UserSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   type: { type: String, enum: ['admin', 'teacher', 'student'], required: true },
-  active: { type: Boolean, default: true }
+  active: { type: Boolean, default: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 mongoose.model('User', UserSchema);

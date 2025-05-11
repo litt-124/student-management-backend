@@ -13,6 +13,7 @@ const run = async () => {
 
     const User = mongoose.model('User');
 
+    const hashedPassword = bcrypt.hashSync('SecurePass123', 10);
 
     // Create Admin User
     const exists = await User.findOne({ email: 'admin@admin.com' });

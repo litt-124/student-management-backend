@@ -287,6 +287,12 @@ class UserManager extends AbstractManager {
                 throw new Error('user with email ' + params.email + ' already exists');
             }
         }
+        if(params.username) {
+            let existingUser = await this.getByUsername(params.username);
+            if(existingUser && existingUser._id.toString() !== id) {
+                throw new Error('user with username ' + params.username + ' already exists');
+            }
+        }
         if(params.password) {
             params.password = this.#getPasswordHash(params.password);
         }

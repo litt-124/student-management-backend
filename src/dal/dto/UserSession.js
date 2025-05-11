@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
  * UserSessionSchema
  */
 const UserSessionSchema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  start_time: { type: Date, default: Date.now },
-  end_time: { type: Date },
-  ip_address: { type: String },
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  startTime: { type: Date, default: Date.now },
+  endTime: { type: Date },
+  ipAddress: { type: String },
   token: { type: String }
 }, { timestamps: true });
 mongoose.model('UserSession', UserSessionSchema);

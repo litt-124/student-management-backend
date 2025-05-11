@@ -6,7 +6,9 @@ const Schema = mongoose.Schema;
  */
 const ComputerSchema = new Schema({
   name: { type: String, required: true },
-  ip_address: { type: String, required: true },
-  lab_id: { type: Schema.Types.ObjectId, ref: 'Lab', required: true }
+  ipAddress: { type: String, required: true },
+  labId: { type: Schema.Types.ObjectId, ref: 'Lab', required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 mongoose.model('Computer', ComputerSchema);

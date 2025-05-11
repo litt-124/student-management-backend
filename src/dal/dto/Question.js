@@ -9,6 +9,8 @@ const QuestionSchema = new Schema({
   value: { type: String, required: true },
   type: { type: String, required: true },
   attachments: { type: String },
-  exam_id: { type: Schema.Types.ObjectId, ref: 'Exam', required: true }
+  examId: { type: Schema.Types.ObjectId, ref: 'Exam', required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 mongoose.model('Question', QuestionSchema);

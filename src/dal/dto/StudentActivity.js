@@ -5,9 +5,11 @@ const Schema = mongoose.Schema;
  * StudentActivitySchema
  */
 const StudentActivitySchema = new Schema({
-  session_id: { type: Schema.Types.ObjectId, ref: 'UserSession', required: true },
-  exam_id: { type: Schema.Types.ObjectId, ref: 'Exam', required: true },
-  start_time: { type: Date, default: Date.now },
-  end_time: { type: Date }
+  sessionId: { type: Schema.Types.ObjectId, ref: 'UserSession', required: true },
+  examId: { type: Schema.Types.ObjectId, ref: 'Exam', required: true },
+  startTime: { type: Date, default: Date.now },
+  endTime: { type: Date },
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
 mongoose.model('StudentActivity', StudentActivitySchema);
