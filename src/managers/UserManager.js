@@ -240,11 +240,13 @@ class UserManager extends AbstractManager {
      */
     async getList(offset, limit, searchText) {
         let users = [];
-        if(!searchText) {
+        const trimmedText = searchText ? searchText.trim() : '';
+
+        if(!trimmedText) {
             users = await UserDto.find({}).sort({createdAt: 1}).skip(offset).limit(limit);
         }
         else {
-            users = await this.searchUsers(searchText, offset, limit);
+            users = await this.searchUsers(trimmedText, offset, limit);
         }
         return users;
     }

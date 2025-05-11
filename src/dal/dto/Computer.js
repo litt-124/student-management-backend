@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const ComputerSchema = new Schema({
   name: { type: String, required: true },
   ipAddress: { type: String, required: true },
-  labId: { type: Schema.Types.ObjectId, ref: 'Lab', required: true },
+  labId: { type: Schema.Types.ObjectId, ref: 'Lab', required: false },
   createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });

@@ -29,14 +29,21 @@ class LabManager extends AbstractManager {
 
     async getList(offset = 0, limit = 100, searchText) {
         let labs = [];
-        if (!searchText) {
-            labs = await Lab.find({}).sort({createdAt: 1}).skip(offset).limit(limit);
-        } else {
-            labs = await this.searchLabs(searchText, offset, limit);
-        }
-        return labs;
 
+        const trimmedText = searchText ? searchText.trim() : '';
+
+        if (!trimmedText) {
+            labs = await Lab.find({})
+                .sort({ createdAt: 1 })
+                .skip(offset)
+                .limit(limit);
+        } else {
+            labs = await this.searchLabs(trimmedText, offset, limit);
+        }
+
+        return labs;
     }
+
 
     async searchLabs(searchKey, offset, limit) {
         const searchRegex = new RegExp(searchKey, 'i');
