@@ -92,17 +92,31 @@ class AbstractAction {
      * @returns {Promise<{}>}
      */
     async getRequestData(req) {
-        let requestDataFormat = await this.getRequestDataFormat();
+        const requestDataFormat = await this.getRequestDataFormat();
 
-        let result = await this._getFormattedData(requestDataFormat, req);
-        if(!Object.keys(result.errors).length) {
+        const result = await this._getFormattedData(requestDataFormat, req);
+
+        if (!Object.keys(result.errors).length) {
+            // Auto-attach createdBy/updatedBy if they exist in the schema
+            const method = req.method.toLowerCase();
+
+            if (req.currentUser && req.currentUser._id) {
+                if (method === 'post') {
+                    result.fields.createdBy = req.currentUser._id.toString();
+                }
+                if (method === 'put') {
+                    result.fields.updatedBy = req.currentUser._id.toString();
+                }
+            }
+
             return result.fields;
         }
 
-        let error = new Error('validation failed');
+        const error = new Error('validation failed');
         error.data = result.errors;
         throw error;
     }
+
 
 
     _hasError(errors) {
