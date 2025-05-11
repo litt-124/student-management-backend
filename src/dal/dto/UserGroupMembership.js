@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
  */
 const UserGroupMembershipSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  groupId: { type: Schema.Types.ObjectId, ref: 'UserGroup', required: true },
+  userGroupId: { type: Schema.Types.ObjectId, ref: 'UserGroup', required: true },
   createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
