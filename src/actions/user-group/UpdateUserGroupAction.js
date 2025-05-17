@@ -26,6 +26,7 @@ const IdValidator = require(path.join(MANAGER.getValidatorsDir(), 'IdValidator')
  *           example:
  *             name: "Updated Group Name"
  *             description: "Updated description"
+ *             userIds: "Updated User Ids"
  *     responses:
  *       200:
  *         description: Successfully updated
@@ -44,7 +45,9 @@ class UpdateUserGroupAction extends AbstractAction {
             groupId: { type: 'text', required: true, from: 'params', validator: IdValidator },
             name: { type: 'text', from: 'body' },
             description: { type: 'text', from: 'body' },
-            userId: { type: 'text', from: 'body' }
+            userId: { type: 'text', from: 'body' },
+            members: { type: 'array', from: 'body' }
+
 
         };
     }

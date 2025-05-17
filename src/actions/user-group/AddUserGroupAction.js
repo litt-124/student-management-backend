@@ -34,7 +34,8 @@ class AddUserGroupAction extends AbstractAction {
         return {
             name: { type: 'text', required: true, from: 'body' },
             description: { type: 'text', required: false, from: 'body' },
-            userId: { type: 'text', from: 'body' }
+            userId: { type: 'text', from: 'body' },
+            members: { type: 'array', from: 'body' }
 
         };
     }

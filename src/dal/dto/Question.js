@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
  * QuestionSchema
  */
 const QuestionSchema = new Schema({
-  title: { type: String, required: true },
-  value: { type: String, required: true },
-  type: { type: String, required: true },
-  attachments: { type: String },
   examId: { type: Schema.Types.ObjectId, ref: 'Exam', required: true },
+  type: { type: String, enum: ['text', 'multiple-choice', 'file-upload'], required: true },
+  title: { type: String, required: true },
+  answerOptions: [String], // only for multiple-choice
+  allowAttachments: { type: Boolean, default: false },
   createdBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 }, { timestamps: true });
