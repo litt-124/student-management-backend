@@ -77,6 +77,14 @@ class ExamManager extends AbstractManager {
 
         await Question.insertMany(questionDocs);
     }
+    async getUpcomingForUser(user) {
+        if (!user || !user._id || !user.userGroupId) return [];
+        return Exam.find({
+            status: 'scheduled',
+            userGroupId: user.userGroupId,
+            startTime: { $gte: new Date() }
+        }).sort({ startTime: 1 });
+    }
 }
 
 module.exports = new ExamManager();

@@ -285,8 +285,9 @@ class MANAGER {
       let router = require(routerPath);
       await router.initialize();
     }
-
+    console.log(routes)
     this.getApp().use((req, res, next) => {
+      console.log(req)
       res.status(404).send('Not Found');
     });
   }

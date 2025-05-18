@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
  * StudentActivitySchema
  */
 const StudentActivitySchema = new Schema({
-  sessionId: { type: Schema.Types.ObjectId, ref: 'UserSession', required: true },
+  sessionId: { type: Schema.Types.ObjectId, ref: 'UserSession', required: false, default:null },
   examId: { type: Schema.Types.ObjectId, ref: 'Exam', required: true },
   startTime: { type: Date, default: Date.now },
   endTime: { type: Date },
