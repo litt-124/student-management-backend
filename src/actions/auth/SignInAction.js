@@ -6,7 +6,8 @@ const AbstractAction = require(path.join(MANAGER.getActionsDir(), 'AbstractActio
 const UserManager = require(path.join(MANAGER.getManagersDir(), 'UserManager'));
 const EmailValidator = require(path.join(MANAGER.getValidatorsDir(), 'EmailValidator'));
 const PasswordValidator = require(path.join(MANAGER.getValidatorsDir(), 'PasswordValidator'));
-
+const mongoose = require("mongoose");
+const UserSession = mongoose.model("UserSession");
 /**
  * @swagger
  * /auth/sign-in:
@@ -44,9 +45,24 @@ const PasswordValidator = require(path.join(MANAGER.getValidatorsDir(), 'Passwor
 class SignInAction extends AbstractAction {
     async action(data, req, res) {
         const user = await UserManager.getByEmailAndPassword(data.email, data.password);
+
         let userData = UserManager.formatUserToResponse(user);
+        const token = await UserManager.getToken(user);
+
+// Close previous sessions
+        UserSession.updateMany(
+            { userId: user._id, endTime: null },
+            { endTime: new Date() }
+        );
+
+        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        UserSession.create({
+            userId: user._id,
+            token,
+            ipAddress: ip
+        });
         return {
-            token: await UserManager.getToken(user),
+            token: token,
             userData
         };
     }

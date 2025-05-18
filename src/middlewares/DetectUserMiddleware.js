@@ -3,6 +3,8 @@
 const path = require("path");
 const MANAGER = require(path.join(process.cwd(), 'MANAGER')).getInstance();
 const UserManager = require(path.join(MANAGER.getManagersDir(), 'UserManager'));
+const mongoose = require("mongoose");
+const UserSession = mongoose.model("UserSession");
 
 class DetectUserMiddleware {
 
@@ -20,13 +22,30 @@ class DetectUserMiddleware {
      * @returns {Promise<*>}
      */
     async detect(req, res, next) {
-        if(!req.headers['authorization']) {
+        const token = req.headers['authorization'];
+        if (!token) {
             req.currentUser = null;
-        }
-        else {
-            req.currentUser = await UserManager.getByToken(req.headers['authorization']);
+            return next();
         }
 
+        const user = await UserManager.getByToken(token);
+        if (!user) {
+            req.currentUser = null;
+            return next();
+        }
+
+        const session = await UserSession.findOne({
+            userId: user._id,
+            token: token,
+            endTime: null
+        });
+
+        if (!session) {
+            req.currentUser = null;
+            return res.status(403).json({ message: 'Session invalid or expired' });
+        }
+
+        req.currentUser = user;
         return next();
     }
 }
