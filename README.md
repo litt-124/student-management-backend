@@ -1,4 +1,4 @@
-#  Assignment Management – Backend
+#  Exam Management – Backend
 
 This is the backend API built with **Node.js**, **Express**, and **MongoDB** using **Mongoose**. It handles all business logic for user authentication, exam creation, submissions, lab/computer management, and secure session enforcement.
 
